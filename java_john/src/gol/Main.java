@@ -23,7 +23,7 @@ public class Main extends Application {
     private static final int HEIGHT = 800;
 
     /**
-     * The size of each cell in pxels
+     * The size of each cell in pixels
      */
     private static final int CELL_SIZE = 20;
 
@@ -43,8 +43,16 @@ public class Main extends Application {
         Button btnStep = new Button("Step");
         Button btnRun = new Button("Run");
         Button btnStop = new Button("Stop");
+        Button btnSaveState = new Button("Save");
+        Button btnLoadState = new Button("Load");
 
-        root.getChildren().addAll(canvas, new HBox(10, btnReset, btnStep, btnRun, btnStop));
+        root.getChildren().addAll(canvas, new HBox(10,
+                btnReset,
+                btnStep,
+                btnRun,
+                btnStop,
+                btnSaveState,
+                btnLoadState));
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.setTitle(WINDOW_TITLE);
@@ -52,7 +60,7 @@ public class Main extends Application {
 
         GraphicsContext graphics = canvas.getGraphicsContext2D();
 
-        GameBoard gameBoard = new GameBoard(WIDTH, HEIGHT, CELL_SIZE, graphics);
+        GameBoard gameBoard = new GameBoard(WIDTH, HEIGHT, CELL_SIZE, graphics, primaryStage);
 
         // Set up the animation timer
         AnimationTimer runAnimation = new AnimationTimer() {
@@ -72,6 +80,8 @@ public class Main extends Application {
         btnRun.setOnAction(l -> runAnimation.start());
         btnStep.setOnAction(l -> gameBoard.tick());
         btnStop.setOnAction(l -> runAnimation.stop());
+        btnSaveState.setOnAction(l -> gameBoard.saveState());
+        btnLoadState.setOnAction(l -> gameBoard.loadState());
     }
 
     public static void main(String[] args) {

@@ -2,6 +2,7 @@ package gol;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -38,14 +39,16 @@ public class GameBoard {
     private static final Color CELL_BORDER_COLOR = Color.gray(0.5, 0.5);
 
     private final GraphicsContext graphicsContext;
+    private final Stage stage;
 
-    public GameBoard(int width, int height, int cellSize, GraphicsContext graphicsContext) {
+    public GameBoard(int width, int height, int cellSize, GraphicsContext graphicsContext, Stage stage) {
         this.width = width;
         this.height = height;
         this.rows = (int)Math.floor(height / cellSize);
         this.columns = (int)Math.floor(width / cellSize);
         this.cellSize = cellSize;
         this.graphicsContext = graphicsContext;
+        this.stage = stage;
         initializeBoard();
     }
 
@@ -77,7 +80,7 @@ public class GameBoard {
             for (int x = 0; x < columns; x++) {
                 // First draw the border
                 graphicsContext.setFill(CELL_BORDER_COLOR);
-                graphicsContext.fillRect(y * cellSize, x * cellSize, cellSize, cellSize);
+                graphicsContext.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
 
                 // Set the fill color based on if there is a lifeform or not, then fill the cell with the color
                 if (isLifeformExistsAtLocation(x, y)) {
@@ -85,7 +88,7 @@ public class GameBoard {
                 } else {
                     graphicsContext.setFill(EMPTY_CELL_COLOR);
                 }
-                graphicsContext.fillRect((y * cellSize) + 1, (x * cellSize) + 1, cellSize - 2, cellSize - 2);
+                graphicsContext.fillRect((x * cellSize) + 1, (y * cellSize) + 1, cellSize - 2, cellSize - 2);
             }
         }
     }
@@ -119,6 +122,16 @@ public class GameBoard {
         draw();
     }
 
+    public void saveState() {
+        FileUtils fileUtils = new FileUtils(this, stage);
+        fileUtils.saveFile();
+    }
+
+    public void loadState() {
+        FileUtils fileUtils = new FileUtils(this, stage);
+        fileUtils.loadFile();
+    }
+
     private int getNumberOfNeighbors(Coordinate coordinate) {
         int count = 0;
         for (Coordinate coord : coordinate.getNeighboringCoordinates(rows, columns)) {
@@ -129,12 +142,12 @@ public class GameBoard {
         return count;
     }
 
-    private boolean isLifeformExistsAtLocation(int x, int y) {
+    public boolean isLifeformExistsAtLocation(int x, int y) {
         Coordinate coordinate = new Coordinate(x, y);
         return isLifeformExistsAtLocation(coordinate);
     }
 
-    private boolean isLifeformExistsAtLocation(Coordinate coordinate) {
+    public boolean isLifeformExistsAtLocation(Coordinate coordinate) {
         boolean result = false;
 
         for (Lifeform lifeform : lifeforms) {
@@ -146,4 +159,7 @@ public class GameBoard {
 
         return result;
     }
+
+    public int getRows() { return rows; }
+    public int getColumns() { return columns; }
 }
