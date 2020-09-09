@@ -71,7 +71,7 @@ public class GameBoard {
         draw();
     }
 
-    private void draw() {
+    public void draw() {
         // Clear everything first
         graphicsContext.setFill(EMPTY_CELL_COLOR);
         graphicsContext.fillRect(0, 0, width, height);
@@ -162,4 +162,7 @@ public class GameBoard {
 
     public int getRows() { return rows; }
     public int getColumns() { return columns; }
+
+    public Set<Lifeform> getLifeforms() { return lifeforms; }
+    public void setLifeforms(Set<Lifeform> lifeforms) { this.lifeforms = lifeforms; }
 }

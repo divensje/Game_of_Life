@@ -25,12 +25,12 @@ public class Main extends Application {
     /**
      * The size of each cell in pixels
      */
-    private static final int CELL_SIZE = 20;
+    private static final int CELL_SIZE = 15;
 
     /**
      * The length of time between update ticks in milliseconds
      */
-    private static final int UPDATE_RATE = 100;
+    private static final int UPDATE_RATE = 150;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
