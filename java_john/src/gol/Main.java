@@ -19,18 +19,18 @@ public class Main extends Application {
     /**
      * The width and height of the game board in pixels
      */
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 800;
+    private static final int WIDTH = 700;
+    private static final int HEIGHT = 700;
 
     /**
      * The size of each cell in pixels
      */
-    private static final int CELL_SIZE = 15;
+    private static final int CELL_SIZE = 20;
 
     /**
      * The length of time between update ticks in milliseconds
      */
-    private static final int UPDATE_RATE = 150;
+    private static final int UPDATE_RATE = 100;
 
     @Override
     public void start(Stage primaryStage) throws Exception {

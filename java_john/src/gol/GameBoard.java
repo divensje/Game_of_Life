@@ -94,7 +94,7 @@ public class GameBoard {
     }
 
     public void tick() {
-        Set<Lifeform> nextIterationLifeforms = new HashSet<>();
+        Set<Lifeform> nextIterationLifeforms = new HashSet<>(rows * columns);
 
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < columns; x++) {
@@ -148,16 +148,7 @@ public class GameBoard {
     }
 
     public boolean isLifeformExistsAtLocation(Coordinate coordinate) {
-        boolean result = false;
-
-        for (Lifeform lifeform : lifeforms) {
-            if (lifeform.getCoordinate().isSame(coordinate)) {
-                result = true;
-                break;
-            }
-        }
-
-        return result;
+        return lifeforms.stream().anyMatch(l -> l.getCoordinate().isSame(coordinate));
     }
 
     public int getRows() { return rows; }
