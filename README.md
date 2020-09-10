@@ -7,4 +7,4 @@ Justin - Python implementation using PyGame
 
 Richard -
 
-John - 
+John - Java implementation using JavaFX
